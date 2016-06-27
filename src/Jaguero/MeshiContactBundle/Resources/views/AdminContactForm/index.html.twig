@@ -1,0 +1,48 @@
+{% extends "FlowcodeDashboardBundle:Default:layout.html.twig" %}
+
+{% block title %}{{ '%entity% list'|trans({'%entity%': 'ContactForm'}, 'ContactForm') }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>
+            {{ '%entity% list'|trans({'%entity%': 'ContactForm'}, 'ContactForm') }}
+        </h1>
+    </section>
+    <section class="content">    
+        <div class="box">
+            <div class="box-header">
+                <div class="box-tools pull-right">                    <a class="btn btn-link btn-sm" href={{ path('admin_contactform_new') }}>
+                        <i class="fa fa-plus"></i> {{ 'Create a new %entity%'|trans({'%entity%': 'ContactForm'}, 'ContactForm') }}
+                    </a>
+                            </div>
+            </div>
+            <div class="box-body">    
+            <table class="table table-hover records_list table-condensed">
+                <thead>
+                    <tr>                        <th scope="col">{{ knp_pagination_sortable(paginator, 'Name', 'c.name') }}</th>                        <th scope="col">{{ knp_pagination_sortable(paginator, 'Yourname', 'c.yourName') }}</th>                        <th scope="col">{{ knp_pagination_sortable(paginator, 'Youremail', 'c.yourEmail') }}</th>                        <th scope="col">{{ knp_pagination_sortable(paginator, 'Subject', 'c.subject') }}</th>                        <th scope="col">{{ knp_pagination_sortable(paginator, 'Yourmessage', 'c.yourMessage') }}</th>                        <th scope="col">{{ knp_pagination_sortable(paginator, 'Redirecturl', 'c.redirectUrl') }}</th>                        <th scope="col">{{ knp_pagination_sortable(paginator, 'Toemail', 'c.toEmail') }}</th>                    </tr>
+                </thead>
+                <tbody>
+                    {% for contactform in paginator %}
+                        <tr>
+                                                             
+                                <td><a href="{{ path('admin_contactform_show', {id: contactform.id}) }}">{{ contactform.name }}</a></td>
+                                <td>{{ contactform.yourName }}</td>
+                                <td>{{ contactform.yourEmail }}</td>
+                                <td>{{ contactform.subject }}</td>
+                                <td>{{ contactform.yourMessage }}</td>
+                                <td>{{ contactform.redirectUrl }}</td>
+                                <td>{{ contactform.toEmail }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            {{ knp_pagination_render(paginator) }}
+            </div>
+        <div class="box-footer">
+
+        </div>
+        
+    </section>        
+
+{% endblock %}

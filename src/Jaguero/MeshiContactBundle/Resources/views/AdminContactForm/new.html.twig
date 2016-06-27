@@ -1,0 +1,31 @@
+{% extends "FlowcodeDashboardBundle:Default:layout.html.twig" %}
+
+{% block title %}{{ '%entity% creation'|trans({'%entity%': 'ContactForm'}, 'ContactForm') }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>
+            <a href="{{ path('admin_contactform') }}"> {{ '%entity% list'|trans({'%entity%': 'ContactForm'}, 'ContactForm') }}</a>
+            /
+            {{ 'ContactForm' | trans({}, 'ContactForm')}}
+        </h1>
+
+    </section>        
+    <section class="content">
+        <div class="box">
+            <div class="box-body">
+                {{ form_start(form, {action: path('admin_contactform_create')}) }}
+                    {{ form_widget(form) }}
+                    <p>
+                        <button class="btn-default btn" type="submit">{{ 'save'|trans | capitalize}}</button>
+                    </p>
+                {{ form_end(form) }}
+            </div>
+            <div class="box-footer">
+                        
+        <div class="btn-group record_actions"></div>
+
+            </div>
+        </div>
+    </section>
+{% endblock %}
