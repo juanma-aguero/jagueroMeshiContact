@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ContactForm
  *
  * @ORM\Table(name="meshi_contact_form")
- * @ORM\Entity(repositoryClass="Jaguero\FlexPricingBundle\Repository\ContactFormRepository")
+ * @ORM\Entity(repositoryClass="Jaguero\MeshiContactBundle\Repository\ContactFormRepository")
  */
 class ContactForm
 {
