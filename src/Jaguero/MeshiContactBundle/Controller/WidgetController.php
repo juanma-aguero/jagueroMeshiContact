@@ -59,6 +59,19 @@ class WidgetController extends Controller
 
             //$this->addFlash('success', 'Mensaje enviado, ¡Gracias!');
 
+            $message = \Swift_Message::newInstance()
+                ->setSubject($contactForm->getSubject())
+                ->setFrom($contactForm->getYourEmail())
+                ->setTo($config->getToEmail())
+                ->setBody(
+                    $this->renderView(
+                        'JagueroMeshiContactBundle:Email:contact.html.twig',
+                        array(
+                            'contact' => $contactForm
+                        )
+                    ), 'text/html');
+            $this->get('mailer')->send($message);
+
             return $this->redirect($config->getRedirectUrl());
         }
 
