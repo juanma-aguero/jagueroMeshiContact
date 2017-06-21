@@ -13,5 +13,7 @@
       "": "src/"
     }
   },
-  "require": {}
+  "require": {
+    "excelwebzone/recaptcha-bundle": "^1.4"
+  }
 }
