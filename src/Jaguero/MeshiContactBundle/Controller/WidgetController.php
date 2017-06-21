@@ -3,6 +3,7 @@
 namespace Jaguero\MeshiContactBundle\Controller;
 
 use Jaguero\MeshiContactBundle\Entity\ContactFormData;
+use Jaguero\MeshiContactBundle\Form\Type\CaptchaContactFormType;
 use Jaguero\MeshiContactBundle\Form\Type\StandardContactFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -32,7 +33,14 @@ class WidgetController extends Controller
 
         $contactForm = new ContactFormData();
 
-        $form = $this->createForm(new StandardContactFormType(), $contactForm, array(
+        $reCaptchaEnabled = true;
+        if ($reCaptchaEnabled) {
+            $formType = CaptchaContactFormType::class;
+        } else {
+            $formType = StandardContactFormType::class;
+        }
+
+        $form = $this->createForm($formType, $contactForm, array(
             'action' => $this->generateUrl('meshi_contactform_send', array('id' => $contactFormConfig->getId())),
             'method' => 'POST',
         ));
@@ -54,7 +62,15 @@ class WidgetController extends Controller
     {
 
         $contactForm = new ContactFormData();
-        $form = $this->createForm(new StandardContactFormType(), $contactForm);
+
+        $reCaptchaEnabled = true;
+        if ($reCaptchaEnabled) {
+            $formType = CaptchaContactFormType::class;
+        } else {
+            $formType = StandardContactFormType::class;
+        }
+        $form = $this->createForm($formType, $contactForm);
+
         if ($form->handleRequest($request)->isValid()) {
 
             //$this->addFlash('success', 'Mensaje enviado, ¡Gracias!');
@@ -75,9 +91,9 @@ class WidgetController extends Controller
             return $this->redirect($config->getRedirectUrl());
         }
 
-        return array(
-            'form' => $form->createView(),
-        );
+        $this->addFlash('error', 'No válido');
+
+        return $this->redirect($config->getRedirectUrl());
     }
 
 }
